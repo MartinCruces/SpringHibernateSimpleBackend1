@@ -2,14 +2,19 @@ package com.example.springhibernatebackend1.KompisRESTAPI.Controllers;
 
 import com.example.springhibernatebackend1.KompisRESTAPI.Models.Kompis;
 import com.example.springhibernatebackend1.KompisRESTAPI.Repos.KompisRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 public class KompisController {
 
     private final KompisRepository repo;
+    private static final Logger log = LoggerFactory.getLogger(KompisController.class);
 
     KompisController(KompisRepository repo){
         this.repo =repo;
@@ -23,18 +28,21 @@ public class KompisController {
     @PostMapping("Kompisar/add")
     public List<Kompis> addKompis(@RequestBody Kompis kompis){
         repo.save(kompis);
+        log.info("Kompis added");
         return repo.findAll();
     }
 
     @RequestMapping("Kompisar/{id}")
     public Kompis getKompis(@PathVariable long id){
-
+        log.info("Kompis found");
         return repo.findById(id).get();
     }
 
     @RequestMapping("Kompisar/{id}/delete")
     public List<Kompis> deleteKompisById(@PathVariable long id){
+
         repo.deleteById(id);
+        log.info("Kompis deleted with id: " + id);
         return repo.findAll();
     }
 
