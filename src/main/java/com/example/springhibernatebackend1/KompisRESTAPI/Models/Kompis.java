@@ -22,4 +22,10 @@ public class Kompis {
     protected String address;
     protected String phoneNr;
 
+    public Kompis(String name, String address, String phoneNr){
+        this.name = name;
+        this.address = address;
+        this.phoneNr = phoneNr;
+    }
+
 }
