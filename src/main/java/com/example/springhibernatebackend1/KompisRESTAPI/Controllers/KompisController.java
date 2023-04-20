@@ -34,8 +34,17 @@ public class KompisController {
 
     @RequestMapping("Kompisar/{id}")
     public Kompis getKompis(@PathVariable long id){
-        log.info("Kompis found");
-        return repo.findById(id).get();
+
+        Kompis kompis = null;
+
+        if(repo.findById(id).isEmpty()){
+            log.info("id number: " + id + " not found!");
+        }
+        else{
+             kompis = repo.findById(id).get();
+            log.info("Kompis found with id: " + id);
+        }
+        return kompis;
     }
 
     @RequestMapping("Kompisar/{id}/delete")
@@ -48,6 +57,7 @@ public class KompisController {
 
     @RequestMapping("Kompisar/{name}/name")
     public List<Kompis> getKompisByName(@PathVariable String name){
+        log.info("Kompis found with name:" + name);
         return repo.getKompisByName(name);
     }
 
